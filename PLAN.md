@@ -43,8 +43,9 @@ portfolio-site/
    - Studio outtakes（棚拍中没写成作品的画面，12 张）
    - Behind the scenes（花絮，15 张）
    点任一小图在灯箱里看（灯箱也比作品小一号，白边装裱）；有关联作品的会显示 “Related work: 作品名 →”，点了直接打开那件作品。列数按张数自动算，尽量三行。
-5. **About**：自述（待补）+ 邮箱。
-6. 以后要加 **Research** 之类的独立板块：在 `data.js` 的 `sections` 里加一个对象 `{ id, label, intro, items }`，导航和页面会自动出现，图片用小尺寸瀑布流（styles.css 的 `.masonry`，4 列）。
+5. **Plans**：作者的 16 页 iPad 方案页（参考图、材料、构图草图），做成一排用胶带贴着的速写本页，可左右滑动；点开看大图，可以读清手写字。每页有英文小标题和一句说明，相关的作品有 “→ 作品名” 链接。数据在 `data.js` 的 `sections`（`layout: "strip"`），图片在 `assets/plans/`。
+6. **About me**：作者自述（三段）+ 邮箱。
+7. 以后要加 **Research** 之类的独立板块：在 `data.js` 的 `sections` 里加一个对象 `{ id, label, intro, items }`，导航和页面会自动出现，图片用小尺寸瀑布流（styles.css 的 `.masonry`，4 列）。
 
 ## 3. 标题
 
@@ -61,7 +62,8 @@ portfolio-site/
 - [ ] 材料清单（data.js 每件作品的 `materials`，从描述里整理）
 - [ ] Process 区三组的英文说明（`intro`，草稿）
 - [ ] “→ 作品名” 的关联是我根据画面判断的，需核对
-- [ ] About 自述（约 100 词英文）
+- [x] About 自述
+- [x] 作品文字字体：`data.js` 的 `textFont`（fraunces / literata / nunito / figtree），关键词用 `**…**` 标出、黄色荧光笔效果（每件可用 `mark` 换颜色），作品名等用 `*…*` 斜体
 - [x] `showDraftNotes: false`（虚线草稿提示已隐藏）
 - [ ] 绑定域名后把 index.html 的 `og:image` 改成完整网址
 

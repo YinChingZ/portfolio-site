@@ -6,6 +6,7 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const W = P.works, n = W.length;
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const rich = (t) => esc(t).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>"); // **key words**, *titles*
   const words = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
   const pinColors = ["#E8173F", "#4FC6EE", "#FFE14D", "#3DC96F", "#F4A9C0", "#7DB9FF", "#FF9A5E"];
   const pin = (i, size) => `<span class="pin" style="--pc:${pinColors[i % pinColors.length]}${size ? `;--ph:${size}px` : ""}" aria-hidden="true"></span>`;
@@ -37,6 +38,7 @@
   const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   const t0 = performance.now();
   document.title = P.seriesTitle.join(" ");
+  if (P.textFont) document.documentElement.dataset.textfont = P.textFont; // font of the artist's texts (see styles.css)
 
   $$("[data-artist]").forEach((e) => (e.textContent = P.artist));
   $("[data-sticker]").innerHTML = `
@@ -82,6 +84,7 @@
   function renderDetail(i) {
     const w = W[i];
     detail.style.setProperty("--flavor", w.flavor);
+    detail.style.setProperty("--mark", w.mark || "#FFE14D"); // key-word highlighter (data.js → mark)
     const proc = w.process || [];
     inner.innerHTML = `
       <div class="detail-img"><img class="print" src="${img(w, 1000)}" srcset="${srcset(w)}" sizes="(max-width: 860px) 92vw, 52vw" width="1000" height="${Math.round(1000 / w.ratio)}" alt="${esc(w.alt)}" data-zoom="work"></div>
@@ -90,7 +93,7 @@
         <h2 class="detail-title" id="detail-title">${esc(w.title)}</h2>
         <ul class="chips" aria-label="Details"><li>${P.year}</li><li>${esc(w.medium)}</li><li>${esc(w.size)}</li></ul>
         ${w.materials ? `<div class="spec">${pin(i, 17)}<p><span class="k">Materials:</span> ${esc(w.materials)}</p></div>` : ""}
-        <div class="desc">${w.description.split(/\n\s*\n/).map((t) => `<p>${esc(t.trim())}</p>`).join("")}</div>
+        <div class="desc">${w.description.split(/\n\s*\n/).map((t) => `<p>${rich(t.trim())}</p>`).join("")}</div>
         ${proc.length ? `<p class="strip-h">Process</p><div class="strip">${proc.map((p, j) => `<button type="button" data-zoom="proc" data-j="${j}" aria-label="View process photo ${j + 1}"><img src="${p.thumb}" alt="" loading="lazy" decoding="async"></button>`).join("")}</div>` : ""}
         <div class="detail-next">
           <button class="link" type="button" data-d="next">${squig}<span>Next: ${esc(W[(i + 1) % n].title)}</span></button>
@@ -147,13 +150,30 @@
       ${(it.caption || (it.related && it.related in bySlug)) ? `<figcaption>${it.caption ? `<span>${esc(it.caption)}</span>` : ""}${it.related && it.related in bySlug ? `<a href="#${it.related}" data-rel="${it.related}">→ ${esc(W[bySlug[it.related]].title)}</a>` : ""}</figcaption>` : ""}
     </figure>`;
 
-  /* ---------- optional extra sections (e.g. Research) ---------- */
+  /* ---------- extra sections (Plans, later Research …) ---------- */
+  const relLinks = (rel) => [].concat(rel || []).filter((r) => r in bySlug)
+    .map((r) => `<a href="#${r}" data-rel="${r}">→ ${esc(W[bySlug[r]].title)}</a>`).join("");
+  const tapes = ["#FFE14D", "#F6A9C9", "#9EDCF5", "#A8E6C1", "#FFC59E"];
+  const strip = (s, k) => `
+      <div class="pages-wrap">
+        <ol class="pages" tabindex="0" aria-label="${esc(s.label)}, ${s.items.length} pages" data-pages>${s.items.map((it, j) => `
+          <li class="page" style="--rot:${[-1.6, 1.2, -0.8, 1.6, -1.2][j % 5]}deg;--tape:${tapes[j % tapes.length]}">
+            <button type="button" data-lbg="s${k}" data-k="${j}" aria-label="View “${esc(it.title || "")}” larger"><img src="${it.thumb}" alt="" width="600" height="450" loading="lazy" decoding="async"></button>
+            <h3>${esc(it.title || "")}</h3>${it.note ? `<p>${esc(it.note)}</p>` : ""}${relLinks(it.related) ? `<p class="rel">${relLinks(it.related)}</p>` : ""}
+          </li>`).join("")}
+        </ol>
+        <div class="pages-ctrl"><button class="candy" type="button" data-pages-go="-1" aria-label="Scroll back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="candy" type="button" data-pages-go="1" aria-label="Scroll forward"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      </div>`;
   $("[data-sections]").innerHTML = (P.sections || []).map((s, k) => `
-    <section class="extra" id="${esc(s.id)}" data-tone="1" aria-labelledby="${esc(s.id)}-h">
-      <div class="section-head"><h2 class="h2" id="${esc(s.id)}-h">${esc(s.label)}</h2></div>
-      ${s.intro ? `<p class="group-intro"><span>${esc(s.intro)}</span></p>` : ""}
-      <div class="masonry">${(s.items || []).map((it, j) => figure(it, j, "s" + k)).join("")}</div>
+    <section class="extra extra-${esc(s.layout || "masonry")}" id="${esc(s.id)}" data-tone="1" aria-labelledby="${esc(s.id)}-h">
+      <div class="section-head center"><h2 class="h2" id="${esc(s.id)}-h">${esc(s.label)}</h2>${s.intro ? `<p class="lede">${esc(s.intro)}</p>` : ""}</div>
+      ${s.layout === "strip" ? strip(s, k) : `<div class="masonry">${(s.items || []).map((it, j) => figure(it, j, "s" + k)).join("")}</div>`}
     </section>`).join("");
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-pages-go]"); if (!b) return;
+    const row = $("[data-pages]", b.closest(".pages-wrap"));
+    row.scrollBy({ left: +b.dataset.pagesGo * row.clientWidth * 0.8, behavior: "smooth" });
+  });
 
   /* ---------- backdrop tone follows the area in the middle of the screen ---------- */
   const toneAreas = $$("[data-tone]");
@@ -172,6 +192,7 @@
 
   /* ---------- about ---------- */
   const a = P.about || {};
+  if (a.heading) $("#about-h").textContent = a.heading;
   let about = "";
   if (a.bio) about += a.bio.split(/\n\s*\n/).map((p) => `<p>${esc(p)}</p>`).join("");
   else if (P.showDraftNotes) about += '<p class="draft-note">Draft note: a short bio goes here, about 100 words in your own voice. Add it in data.js.</p>';
@@ -180,19 +201,20 @@
   $("[data-about]").innerHTML = about;
 
   /* ---------- lightbox ---------- */
-  const dlg = $(".lightbox"), stage = $(".lb-stage", dlg), lbImg = $("img", stage), lbTitle = $(".lb-title", dlg), lbRel = $("[data-lb-rel]", dlg);
+  const dlg = $(".lightbox"), stage = $(".lb-stage", dlg), lbImg = $("img", stage), lbTitle = $(".lb-title", dlg), lbRels = $("[data-lb-rels]", dlg);
   let list = [], idx = 0;
   const lists = {
     work: () => W.map((w) => ({ src: largest(w), alt: w.alt, title: w.title, flavor: w.flavor })),
     proc: () => (W[cur].process || []).map((p, j) => ({ src: p.src, alt: p.caption || "", title: `${W[cur].title}, process ${j + 1}`, flavor: W[cur].flavor, small: true }))
   };
   groups.forEach((g, k) => (lists["g" + k] = () => g.items.map((it, j) => ({ src: it.src, alt: it.caption || `${g.label}, photo ${j + 1}`, title: `${g.label} · ${j + 1} / ${g.items.length}`, flavor: "#FBF8FF", rel: it.related in bySlug ? it.related : null, small: true }))));
-  (P.sections || []).forEach((s, k) => (lists["s" + k] = () => (s.items || []).map((it, j) => ({ src: it.src, alt: it.caption || "", title: `${s.label} ${j + 1}`, flavor: "#FBF8FF" }))));
+  (P.sections || []).forEach((s, k) => (lists["s" + k] = () => (s.items || []).map((it, j) => ({ src: it.src, alt: it.note || it.caption || "", title: it.title ? `${s.label} · ${it.title}` : `${s.label} ${j + 1}`, flavor: "#FBF8FF", rel: it.related }))));
   function lbShow() {
     const it = list[idx]; stage.classList.remove("zoomed"); dlg.classList.toggle("is-small", !!it.small);
     lbImg.src = it.src; lbImg.alt = it.alt; lbTitle.textContent = it.title;
-    lbRel.hidden = !it.rel;
-    if (it.rel) { lbRel.href = "#" + it.rel; lbRel.dataset.slug = it.rel; lbRel.textContent = `Related work: ${W[bySlug[it.rel]].title} →`; }
+    const rels = [].concat(it.rel || []).filter((r) => r in bySlug);
+    lbRels.hidden = !rels.length;
+    lbRels.innerHTML = rels.length ? "Related work: " + rels.map((r) => `<a class="lb-rel" href="#${r}" data-lb-slug="${r}">${esc(W[bySlug[r]].title)} →</a>`).join(" ") : "";
     dlg.style.setProperty("--flavor", it.flavor);
     $$('[data-lb="prev"], [data-lb="next"]', dlg).forEach((b) => (b.hidden = list.length < 2));
   }
@@ -206,7 +228,7 @@
   $('[data-lb="prev"]', dlg).addEventListener("click", () => { idx = (idx - 1 + list.length) % list.length; lbShow(); });
   $('[data-lb="next"]', dlg).addEventListener("click", () => { idx = (idx + 1) % list.length; lbShow(); });
   $('[data-lb="close"]', dlg).addEventListener("click", () => dlg.close());
-  lbRel.addEventListener("click", (e) => { e.preventDefault(); dlg.close(); openWork(bySlug[lbRel.dataset.slug]); });
+  lbRels.addEventListener("click", (e) => { const l = e.target.closest("[data-lb-slug]"); if (!l) return; e.preventDefault(); dlg.close(); openWork(bySlug[l.dataset.lbSlug]); });
   lbImg.addEventListener("click", () => stage.classList.toggle("zoomed"));
   stage.addEventListener("click", (e) => { if (e.target === stage) dlg.close(); });
 
