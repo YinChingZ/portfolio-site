@@ -1,0 +1,104 @@
+/*
+  Pop title — extruded "sticker" lettering in pure CSS.
+  Structure (built by pop-title.js):
+    .pt  >  .pt-line  >  .pt-word  >  .pt-u[data-ch]  >  .pt-f
+  .pt-f      the face (flat colour, or halftone dots via background-clip:text), outlined with --edge
+  ::before   first extrusion (--side), depth --d1, outlined with --edge
+  ::after    second extrusion (--side2), depth --d1 + --d2, outlined with --edge
+  .pt-line   carries the white sticker outline (style C) and the flat drop shadow (--drop)
+
+  Effects:  .pt-A pop block   .pt-B halftone pop   .pt-C retro script sticker
+  Palettes: .pal-1 … .pal-6 (all from the site's candy palette)
+  Hovering a letter presses it into its extrusion.
+*/
+@property --d1 { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --d2 { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
+.pt {
+  /* palette defaults (= .pal-1) */
+  --bg: #FFE500; --face: #FF2E93; --dots: #C8006A; --side: #3FE0F2; --side2: #24104F;
+  --edge: #24104F; --drop: #B9A300; --sticker-c: #FFFFFF;
+  /* effect defaults (= .pt-A) */
+  --D1: .2em; --D2: 0em; --stroke: .055em; --ol: .035em; --so: 0em; --sticker: transparent;
+  --dot-s: .11em; --dot-r: 24%; --tilt: 0deg;
+  margin: 0; text-align: center;
+  font-family: "Rubik", "Arial Black", Impact, sans-serif; font-weight: 900; font-style: italic;
+  line-height: 1.1; letter-spacing: .025em; text-transform: uppercase;
+  transform: rotate(var(--tilt));
+}
+.pt-line {
+  display: block;
+  filter:
+    drop-shadow(var(--so) 0 0 var(--sticker)) drop-shadow(calc(var(--so) * -1) 0 0 var(--sticker))
+    drop-shadow(0 var(--so) 0 var(--sticker)) drop-shadow(0 calc(var(--so) * -1) 0 var(--sticker))
+    drop-shadow(.075em .075em 0 var(--drop));
+}
+.pt-word { display: inline-block; white-space: nowrap; margin: 0 .12em; }
+.pt-u {
+  --d1: var(--D1); --d2: var(--D2);
+  position: relative; display: inline-block; isolation: isolate;
+  transition: --d1 .32s cubic-bezier(.34, 1.56, .64, 1), --d2 .32s cubic-bezier(.34, 1.56, .64, 1), transform .32s cubic-bezier(.34, 1.56, .64, 1);
+  animation: pt-pop .6s cubic-bezier(.34, 1.56, .64, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 100ms);
+}
+.pt-f { position: relative; z-index: 1; color: var(--face); -webkit-text-stroke: var(--stroke) var(--edge); paint-order: stroke fill; }
+.pt-u::before, .pt-u::after {
+  content: attr(data-ch); position: absolute; left: 0; top: 0; pointer-events: none;
+  -webkit-text-stroke: var(--stroke) currentColor;
+}
+.pt-u::before {
+  z-index: -1; color: var(--side);
+  text-shadow:
+    calc(var(--d1) * .1) calc(var(--d1) * .1) 0 var(--side), calc(var(--d1) * .2) calc(var(--d1) * .2) 0 var(--side),
+    calc(var(--d1) * .3) calc(var(--d1) * .3) 0 var(--side), calc(var(--d1) * .4) calc(var(--d1) * .4) 0 var(--side),
+    calc(var(--d1) * .5) calc(var(--d1) * .5) 0 var(--side), calc(var(--d1) * .6) calc(var(--d1) * .6) 0 var(--side),
+    calc(var(--d1) * .7) calc(var(--d1) * .7) 0 var(--side), calc(var(--d1) * .8) calc(var(--d1) * .8) 0 var(--side),
+    calc(var(--d1) * .9) calc(var(--d1) * .9) 0 var(--side), var(--d1) var(--d1) 0 var(--side);
+  filter: drop-shadow(var(--ol) 0 0 var(--edge)) drop-shadow(calc(var(--ol) * -1) 0 0 var(--edge)) drop-shadow(0 var(--ol) 0 var(--edge)) drop-shadow(0 calc(var(--ol) * -1) 0 var(--edge));
+}
+.pt-u::after {
+  --t: calc(var(--d1) + var(--d2));
+  z-index: -2; color: var(--side2); display: none;
+  text-shadow:
+    calc(var(--t) * .1) calc(var(--t) * .1) 0 var(--side2), calc(var(--t) * .2) calc(var(--t) * .2) 0 var(--side2),
+    calc(var(--t) * .3) calc(var(--t) * .3) 0 var(--side2), calc(var(--t) * .4) calc(var(--t) * .4) 0 var(--side2),
+    calc(var(--t) * .5) calc(var(--t) * .5) 0 var(--side2), calc(var(--t) * .6) calc(var(--t) * .6) 0 var(--side2),
+    calc(var(--t) * .7) calc(var(--t) * .7) 0 var(--side2), calc(var(--t) * .8) calc(var(--t) * .8) 0 var(--side2),
+    calc(var(--t) * .9) calc(var(--t) * .9) 0 var(--side2), var(--t) var(--t) 0 var(--side2);
+  filter: drop-shadow(var(--ol) 0 0 var(--edge)) drop-shadow(calc(var(--ol) * -1) 0 0 var(--edge)) drop-shadow(0 var(--ol) 0 var(--edge)) drop-shadow(0 calc(var(--ol) * -1) 0 var(--edge));
+}
+.pt-u:hover, .pt-u.is-pressed { --d1: calc(var(--D1) * .2); --d2: calc(var(--D2) * .2); transform: translate(calc((var(--D1) + var(--D2)) * .6), calc((var(--D1) + var(--D2)) * .6)); }
+@keyframes pt-pop { 0% { transform: scale(0) rotate(-14deg); opacity: 0; } 60% { opacity: 1; } 100% { transform: none; opacity: 1; } }
+
+/* halftone face (B, C) */
+.pt-dots .pt-f {
+  color: transparent;
+  background: radial-gradient(circle, var(--dots) var(--dot-r), transparent calc(var(--dot-r) + 3%)) 0 0 / var(--dot-s) var(--dot-s), var(--face);
+  -webkit-background-clip: text; background-clip: text;
+}
+
+/* ---- effects ---- */
+.pt-B { --D1: .1em; --D2: .1em; --stroke: .03em; --ol: .03em; --dot-s: .1em; --dot-r: 26%; }
+.pt-B .pt-u::after, .pt-C .pt-u::after { display: block; }
+.pt-C {
+  --D1: .085em; --D2: .085em; --stroke: .022em; --ol: .025em; --so: .075em; --sticker: var(--sticker-c);
+  --dot-s: .055em; --dot-r: 22%; --tilt: -4deg;
+  font-family: "Oleo Script", "Lobster", "Brush Script MT", cursive; font-weight: 700; font-style: normal;
+  text-transform: none; letter-spacing: 0; line-height: 1.02;
+}
+.pt-C .pt-word { margin: 0 .08em; }
+
+/* ---- palettes ---- */
+.pal-1 { --bg: #FFE500; --face: #FF2E93; --dots: #C8006A; --side: #3FE0F2; --side2: #24104F; --edge: #24104F; --drop: #B9A300; --sticker-c: #FFFFFF; }
+.pal-2 { --bg: #F6C519; --face: #F0434E; --dots: #7A0A1B; --side: #5FE3C4; --side2: #6A4BD8; --edge: #170B2B; --drop: #A9820C; --sticker-c: #FFFFFF; }
+.pal-3 { --bg: #1E1A35; --face: #D9A28A; --dots: #A9705E; --side: #F37F8B; --side2: #7D2140; --edge: #4E1830; --drop: #0D0A1C; --sticker-c: #FFFFFF; }
+.pal-4 { --bg: #8FD3F7; --face: #FFE500; --dots: #E0B400; --side: #E8173F; --side2: #24104F; --edge: #24104F; --drop: #4F92BD; --sticker-c: #FFFFFF; }
+.pal-5 { --bg: #A6E3BE; --face: #FF9A5E; --dots: #DD5F22; --side: #7A3E28; --side2: #2B140C; --edge: #2B140C; --drop: #5FA67F; --sticker-c: #FFFFFF; }
+.pal-6 { --bg: #24104F; --face: #FFE500; --dots: #D2B200; --side: #FF2E93; --side2: #3FE0F2; --edge: #0B0420; --drop: #0B0420; --sticker-c: #FFFFFF; }
+
+/* soft: no dark outline, light translucent drop — lets the photographs lead */
+.pt-soft { --stroke: 0em; --ol: 0em; --drop: rgba(36, 16, 79, .12); }
+.pt-soft .pt-u::before, .pt-soft .pt-u::after { filter: none; -webkit-text-stroke: 0; }
+.pt-soft .pt-f { -webkit-text-stroke: 0; }
+
+@media (prefers-reduced-motion: reduce) { .pt-u { animation: none; transition: none; } }

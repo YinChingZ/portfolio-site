@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Please Don’t Lick the Art</title>
+<meta name="description" content="Nine photographs by Xiaoran Hou, 2026.">
+<meta property="og:title" content="Please Don’t Lick the Art — Xiaoran Hou">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Nine photographs by Xiaoran Hou, 2026.">
+<meta property="og:image" content="https://xiaoranhou.com/assets/works/eye-candy-og.jpg">
+<meta property="og:url" content="https://xiaoranhou.com/">
+<link rel="canonical" href="https://xiaoranhou.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/rubik-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bagel-fat-one.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="pop-title.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#works">Skip to the works</a>
+
+<header class="nav" aria-label="Site">
+  <a class="nav-name" href="#top" data-artist></a>
+  <nav data-nav></nav>
+</header>
+
+<div class="backdrop" data-backdrop aria-hidden="true"></div>
+
+<main id="top">
+  <section class="hero" data-hero data-tone="0" aria-labelledby="site-title">
+    <h1 class="pt" id="site-title" data-title></h1>
+    <div class="hero-sticker" data-sticker></div>
+  </section>
+
+  <section class="works" id="works" data-tone="0" aria-labelledby="works-h">
+    <h2 class="visually-hidden" id="works-h">Works</h2>
+    <ul class="board" data-grid></ul>
+  </section>
+
+  <section class="process" id="process" data-tone="1" aria-labelledby="process-h">
+    <div class="section-head center">
+      <h2 class="h2" id="process-h">Process</h2>
+      <p class="lede" data-process-intro></p>
+    </div>
+    <div class="sheets" data-sheets></div>
+  </section>
+
+  <div data-sections></div>
+
+  <section class="about" id="about" data-tone="2" aria-labelledby="about-h" data-about-wrap>
+    <div class="about-inner">
+      <h2 class="h2" id="about-h">About</h2>
+      <div class="about-body" data-about></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><p data-footer></p></footer>
+
+<!-- Work detail -->
+<div class="detail" data-detail hidden role="dialog" aria-modal="true" aria-labelledby="detail-title">
+  <div class="detail-bar">
+    <button class="candy" type="button" data-d="prev" aria-label="Previous work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="candy" type="button" data-d="next" aria-label="Next work"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="candy" type="button" data-d="close" aria-label="Back to all works"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="detail-inner" data-detail-inner></div>
+</div>
+
+<!-- Full-size viewer -->
+<dialog class="lightbox" aria-label="Full-size image">
+  <div class="lb-stage"><img alt=""></div>
+  <div class="lb-bar">
+    <button class="candy" type="button" data-lb="prev" aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="lb-cap"><p class="lb-title"></p><a class="lb-rel" href="#" data-lb-rel hidden></a></div>
+    <button class="candy" type="button" data-lb="next" aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <button class="candy lb-close" type="button" data-lb="close" aria-label="Close" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</dialog>
+
+<noscript><p class="noscript">This portfolio needs JavaScript to show the works.</p></noscript>
+
+<script src="data.js"></script>
+<script src="pop-title.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
