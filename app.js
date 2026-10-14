@@ -20,10 +20,10 @@
   const T = Object.assign({ effect: "A", palette: 1 }, P.title || {});
   const palClass = `pal-${T.palette}`;
   // One continuous backdrop: hero + works / process / about each have a tone; it fades between them.
-  // Pale tones so the photographs carry the colour (hero + works / process / about).
+  // Pale tones so the photographs carry the colour: hero + works / process / about / research / plans (palette 4 has all five).
   const TONES = {
     1: ["#FFF7CF", "#E6F4FB", "#FCE8F0"], 2: ["#FFF3CC", "#E3F7F1", "#FDE6E7"], 3: ["#F8EEF0", "#FBE9EC", "#EEEAF6"],
-    4: ["#E6F4FB", "#FFF7CF", "#FCE8F0"], 5: ["#E7F6EC", "#FFEEE3", "#E6F4FB"], 6: ["#EEE9F8", "#E6F4FB", "#FCE8F0"]
+    4: ["#E6F4FB", "#FFF1C4", "#FBE4EE", "#DFF4E8", "#FFE8DA"], 5: ["#E7F6EC", "#FFEEE3", "#E6F4FB"], 6: ["#EEE9F8", "#E6F4FB", "#FCE8F0"]
   };
   const tones = TONES[T.palette] || TONES[1];
   const backdrop = $("[data-backdrop]");
@@ -225,7 +225,7 @@
         ${relLinks(it.related) ? `<div><p class="lab">Related work</p><p class="rel">${[].concat(it.related).filter((r) => r in bySlug).map((r) => `<a href="#${r}" data-rp-slug="${r}">→ ${esc(W[bySlug[r]].title)}</a>`).join("")}</p></div>` : ""}
       </footer>`;
   $("[data-sections]").innerHTML = (P.sections || []).map((s, k) => `
-    <section class="extra extra-${esc(s.layout || "masonry")}" id="${esc(s.id)}" data-tone="1" aria-labelledby="${esc(s.id)}-h">
+    <section class="extra extra-${esc(s.layout || "masonry")}" id="${esc(s.id)}" data-tone="${s.tone ?? 1}" aria-labelledby="${esc(s.id)}-h">
       <div class="section-head center"><h2 class="h2" id="${esc(s.id)}-h">${esc(s.label)}</h2>${s.intro ? `<p class="lede">${esc(s.intro)}</p>` : ""}</div>
       ${s.layout === "strip" ? strip(s, k) : s.layout === "research" ? researchStrip(s, k) : `<div class="masonry">${(s.items || []).map((it, j) => figure(it, j, "s" + k)).join("")}</div>`}
     </section>`).join("");

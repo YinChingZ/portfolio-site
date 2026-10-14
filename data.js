@@ -90,6 +90,7 @@ window.PORTFOLIO = {
   sections: [
     {
       id: "research",
+      tone: 3, // background tone while this section is on screen (mint; see TONES in app.js)
       label: "Research",
       layout: "research", // taped pages like Plans; each opens as a readable page
       intro: "How does sweetness become an experience? How do the physical and sensory qualities of confectionery interact with human perception and memory to shape flavor expectations and emotional comfort?",
@@ -181,6 +182,7 @@ window.PORTFOLIO = {
     },
     {
       id: "plans",
+      tone: 4, // background tone while this section is on screen (peach; see TONES in app.js)
       label: "Plans",
       layout: "strip", // a row of taped sketchbook pages; "masonry" is the other layout
       intro: "Planning pages drawn on iPad before the shoot: references, material lists and composition sketches. Some became photographs; some stayed on paper.", // draft wording — edit freely
