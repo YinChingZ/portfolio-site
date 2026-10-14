@@ -9,8 +9,8 @@
   Courier Prime (only the typed sticker labels). One committed light look.
 */
 :root {
-  --ink: #3B3654;      /* softer, less saturated ink (was #24104F) */
-  --ink-soft: #77728A; /* was #5B4A86 */
+  --ink: #5E596E;      /* soft grey-violet ink: lighter and much less saturated (was #24104F) */
+  --ink-soft: #8F8B9C; /* was #5B4A86 */
   --cherry: #E8173F;
   --lemon: #FFE500;
   --paper: #FBF8FF;
