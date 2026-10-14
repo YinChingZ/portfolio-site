@@ -9,8 +9,8 @@
   Courier Prime (only the typed sticker labels). One committed light look.
 */
 :root {
-  --ink: #24104F;
-  --ink-soft: #5B4A86;
+  --ink: #3B3654;      /* softer, less saturated ink (was #24104F) */
+  --ink-soft: #77728A; /* was #5B4A86 */
   --cherry: #E8173F;
   --lemon: #FFE500;
   --paper: #FBF8FF;
@@ -102,10 +102,10 @@ button { font: inherit; color: inherit; }
 .works { padding: 0 var(--gutter) clamp(88px, 11vw, 140px); }
 .board { list-style: none; margin: clamp(30px, 4vw, 46px) auto 0; padding: 0; max-width: 1060px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(30px, 5vw, 64px) clamp(16px, 4vw, 52px); }
 .board li { min-width: 0; }
-.specimen { all: unset; display: block; position: relative; cursor: pointer; padding-top: 6px; transform: rotate(var(--rot)); transform-origin: 50% 12px; transition: transform .55s var(--pop), opacity .35s var(--out), filter .35s var(--out); }
+.specimen { all: unset; display: block; position: relative; cursor: pointer; padding-top: 6px; transform: rotate(var(--rot)); transform-origin: 18px 14px; transition: transform .55s var(--pop), opacity .35s var(--out), filter .35s var(--out); }
 .specimen:hover, .specimen:focus-visible { transform: rotate(calc(var(--rot) * -1)); }
 .specimen:focus-visible { outline: 3px solid var(--ink); outline-offset: 8px; }
-.specimen .pin { left: 50%; top: 14px; }
+.specimen .pin { left: 18px; top: 16px; } /* top-left corner, off the middle of the photo */
 .specimen img { width: 100%; height: auto; transition: box-shadow .4s var(--out); }
 .specimen .cap { display: block; margin-top: 12px; text-align: center; font-family: var(--display); font-size: clamp(.95rem, 1.5vw, 1.12rem); line-height: 1.15; letter-spacing: .01em; color: var(--on-bg, var(--ink)); text-wrap: balance; }
 /* spotlight: the work under the pointer stays bright, the others step back */
@@ -272,7 +272,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 560px) {
   .board { gap: 26px 12px; }
   .specimen .cap { font-size: .74rem; margin-top: 9px; }
-  .specimen .pin { --ph: 15px; }
+  .specimen .pin { --ph: 15px; left: 12px; top: 13px; }
   .nav { padding-left: 14px; }
   .nav-name { font-size: 1rem; }
   .nav nav a { padding: 6px 9px; font-size: .85rem; }
