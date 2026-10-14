@@ -43,7 +43,8 @@ portfolio-site/
    - Studio outtakes（棚拍中没写成作品的画面，12 张）
    - Behind the scenes（花絮，15 张）
    点任一小图在灯箱里看（灯箱也比作品小一号，白边装裱）；有关联作品的会显示 “Related work: 作品名 →”，点了直接打开那件作品。列数按张数自动算，尽量三行。
-5. **Plans**：作者的 16 页 iPad 方案页（参考图、材料、构图草图），做成一排用胶带贴着的速写本页，可左右滑动；点开看大图，可以读清手写字。每页有英文小标题和一句说明，相关的作品有 “→ 作品名” 链接。数据在 `data.js` 的 `sections`（`layout: "strip"`），图片在 `assets/plans/`。
+5. **Research**：4 页研究，内容来自作者的 Sensing Sweetness 草稿，只取文字和概念，不用 AI 图。版式和 Plans 一样是一排贴着胶带的页，点开是可以读的整页。第一页是风味图（中心 Flavor，周围用作品局部做眼、耳、口、手）；第二页把颜色/形状和质感/声音合在一页；第三页 Maisie Cousins；第四页 Pauline d’Andigné（两件作品的描述里都引用了“material ambiguity”）。图都是网页自己画的，或者裁自九件作品。数据在 `data.js` 的 `sections`（`layout: "research"`）。
+5b. **Plans**：作者的 16 页 iPad 方案页（参考图、材料、构图草图），做成一排用胶带贴着的速写本页，可左右滑动；点开看大图，可以读清手写字。每页有英文小标题和一句说明，相关的作品有 “→ 作品名” 链接。数据在 `data.js` 的 `sections`（`layout: "strip"`），图片在 `assets/plans/`。
 6. **About me**：作者自述（三段）+ 邮箱。
 7. 以后要加 **Research** 之类的独立板块：在 `data.js` 的 `sections` 里加一个对象 `{ id, label, intro, items }`，导航和页面会自动出现，图片用小尺寸瀑布流（styles.css 的 `.masonry`，4 列）。
 

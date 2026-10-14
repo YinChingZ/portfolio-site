@@ -164,10 +164,70 @@
         </ol>
         <div class="pages-ctrl"><button class="candy" type="button" data-pages-go="-1" aria-label="Scroll back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="candy" type="button" data-pages-go="1" aria-label="Scroll forward"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
       </div>`;
+
+  /* ---------- research pages: drawn here (no images except crops of the nine works) ---------- */
+  const CROP = { "eye-candy": "52% 47%", "sugar-murmurs": "44% 44%", "sugared-smile": "38% 40%", "handful-of-sweetness": "42% 32%",
+    "candybound": "40% 55%", "cracked-and-crumbling": "40% 32%", "within-sweet-reach": "55% 38%", "lathered-whispers": "45% 55%", "tangled-treats": "45% 45%" };
+  const disc = (slug, zoom) => `<span class="r-disc"><img src="assets/works/${slug}-600.webp" alt="" style="object-position:${CROP[slug] || "50% 50%"};transform-origin:${CROP[slug] || "50% 50%"};--z:${zoom || 1.6}" loading="lazy" decoding="async"></span>`;
+  const VIS = {
+    flavor: () => `<div class="r-flavor" aria-hidden="true">
+        <svg viewBox="0 0 100 75"><defs><marker id="rf-a" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="3.2" markerHeight="3.2" orient="auto-start-reverse"><path d="M0 0L6 3L0 6z"/></marker></defs>
+          <path class="arc" d="M19 13 C 38 1, 62 1, 81 13"/><path class="arc" d="M19 62 C 38 74, 62 74, 81 62"/>
+          <path class="arc" d="M8 28 C 4 38, 4 44, 8 52"/><path class="arc" d="M92 28 C 96 38, 96 44, 92 52"/>
+          <path class="ar" d="M44 32 L37 26"/><path class="ar" d="M56 32 L63 26"/><path class="ar" d="M44 44 L37 50"/><path class="ar" d="M56 44 L63 50"/></svg>
+        <span class="core">Flavor</span>
+        <span class="bub" style="--x:31;--y:27">taste</span><span class="bub" style="--x:69;--y:27">aroma</span>
+        <span class="bub" style="--x:31;--y:73">texture</span><span class="bub" style="--x:69;--y:73">tempera&shy;ture</span>
+        <span class="route" style="--x:11;--y:19">${disc("eye-candy", 2.2)}<i>eyes</i></span><span class="route" style="--x:89;--y:19">${disc("sugar-murmurs", 1.25)}<i>ears</i></span>
+        <span class="route" style="--x:11;--y:81">${disc("sugared-smile", 1.9)}<i>mouth</i></span><span class="route" style="--x:89;--y:81">${disc("handful-of-sweetness", 1.7)}<i>hands</i></span>
+      </div>`,
+    candy: () => `<div class="r-candy" aria-hidden="true">
+        <div class="row"><span class="n">01</span><span class="lab">translucency</span><span class="gums"><i style="--c:#F2384F"></i><i style="--c:#FFC21A"></i><i style="--c:#45C26B"></i><i style="--c:#EDE7DA"></i></span></div>
+        <div class="row"><span class="n">02</span><span class="lab">roundness</span><span class="lolly"><b></b><s></s></span><span class="dots"><i style="--c:#F2385E"></i><i style="--c:#FF8A2A"></i><i style="--c:#FFD233"></i><i style="--c:#6CC94B"></i></span></div>
+      </div>`,
+    textures: () => `<div class="r-tex" aria-hidden="true">
+        <div class="sw">${[["candybound", "glossy &amp; translucent"], ["cracked-and-crumbling", "porous &amp; brittle"], ["within-sweet-reach", "soft &amp; yielding"]]
+          .map(([slug, l]) => `<span>${disc(slug, 2.4)}<i>${l}</i></span>`).join("")}</div>
+        <div class="wave"><svg viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0 15 ${Array.from({ length: 40 }, (_, i) => `L${i * 5 + 2.5} ${15 + (i % 2 ? -1 : 1) * (2 + ((i * 7) % 11) * (i > 12 && i < 30 ? 1.1 : .35))}`).join(" ")} L200 15"/></svg><i>crunch: the sound of a bite changes how crisp it seems</i></div>
+      </div>`,
+    works: (v) => `<div class="r-works">${v.slugs.filter((x) => x in bySlug).map((x, i) => `
+        <a class="r-print" href="#${x}" data-rp-slug="${x}" style="--rot:${i % 2 ? 2.5 : -2}deg">${pin(i + 2, 16)}<img src="assets/works/${x}-600.webp" alt="${esc(W[bySlug[x]].title)}" loading="lazy" decoding="async"><span>→ ${esc(W[bySlug[x]].title)}</span></a>`).join("")}</div>`
+  };
+  const coverVis = (c) => c === "flavor" ? VIS.flavor() : c === "before"
+    ? `<div class="r-before">${VIS.candy()}<div class="sw3">${["candybound", "cracked-and-crumbling", "within-sweet-reach"].map((x) => disc(x, 2.4)).join("")}</div></div>`
+    : c && c.startsWith("work:") ? `<div class="r-cw">${pin(3, 12)}<img src="assets/works/${c.slice(5)}-600.webp" alt="" loading="lazy" decoding="async"></div>` : "";
+  const researchStrip = (s, k) => `
+      <div class="pages-wrap">
+        <ol class="pages research-pages" tabindex="0" aria-label="${esc(s.label)}, ${s.items.length} pages" data-pages>${s.items.map((it, j) => `
+          <li class="page rpage-card" style="--rot:${[-1.4, 1.1, -0.9, 1.5][j % 4]}deg;--tape:${tapes[(j + 2) % tapes.length]}">
+            <button type="button" data-rs="${k}" data-j="${j}" aria-label="Read “${esc(it.title)}”">
+              <span class="rcover cv-${esc((it.cover || "").split(":")[0])}" aria-hidden="true">
+                <span class="k">${esc(it.kicker || "")}</span><span class="t">${esc(it.title)}</span>${it.subtitle ? `<span class="st">${esc(it.subtitle)}</span>` : ""}
+                <span class="cv">${coverVis(it.cover)}</span>
+              </span>
+            </button>
+            ${it.note ? `<p>${esc(it.note)}</p>` : ""}<p class="rel"><button type="button" class="read" data-rs="${k}" data-j="${j}">Read the page →</button></p>
+          </li>`).join("")}
+        </ol>
+        <div class="pages-ctrl"><button class="candy" type="button" data-pages-go="-1" aria-label="Scroll back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="candy" type="button" data-pages-go="1" aria-label="Scroll forward"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      </div>`;
+  const researchPage = (it, j, n) => `
+      <header class="rp-head"><p class="k">${esc(it.kicker || "")}<span>${j + 1} / ${n}</span></p><h2 id="rdlg-h">${esc(it.title)}</h2>${it.subtitle ? `<p class="st">${esc(it.subtitle)}</p>` : ""}${it.ref ? `<p class="ref">${rich(it.ref)}</p>` : ""}</header>
+      ${(it.groups || []).map((g) => `
+      <section class="rp-group">${g.heading ? `<h3 class="rp-gh">${esc(g.heading)}</h3>` : ""}
+        <div class="rp-grid">
+          <div class="rp-text">${(g.blocks || []).map((b) => `<div class="rp-b"><p class="lab">${esc(b.label)}</p><p>${rich(b.text)}</p></div>`).join("")}</div>
+          ${g.visual && VIS[g.visual.type] ? `<figure class="rp-vis">${VIS[g.visual.type](g.visual)}</figure>` : ""}
+        </div>
+      </section>`).join("")}
+      <footer class="rp-foot">
+        ${(it.sources || []).length ? `<div><p class="lab">Sources</p><ul>${it.sources.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)} ↗</a></li>`).join("")}</ul></div>` : ""}
+        ${relLinks(it.related) ? `<div><p class="lab">Related work</p><p class="rel">${[].concat(it.related).filter((r) => r in bySlug).map((r) => `<a href="#${r}" data-rp-slug="${r}">→ ${esc(W[bySlug[r]].title)}</a>`).join("")}</p></div>` : ""}
+      </footer>`;
   $("[data-sections]").innerHTML = (P.sections || []).map((s, k) => `
     <section class="extra extra-${esc(s.layout || "masonry")}" id="${esc(s.id)}" data-tone="1" aria-labelledby="${esc(s.id)}-h">
       <div class="section-head center"><h2 class="h2" id="${esc(s.id)}-h">${esc(s.label)}</h2>${s.intro ? `<p class="lede">${esc(s.intro)}</p>` : ""}</div>
-      ${s.layout === "strip" ? strip(s, k) : `<div class="masonry">${(s.items || []).map((it, j) => figure(it, j, "s" + k)).join("")}</div>`}
+      ${s.layout === "strip" ? strip(s, k) : s.layout === "research" ? researchStrip(s, k) : `<div class="masonry">${(s.items || []).map((it, j) => figure(it, j, "s" + k)).join("")}</div>`}
     </section>`).join("");
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-pages-go]"); if (!b) return;
@@ -231,6 +291,27 @@
   lbRels.addEventListener("click", (e) => { const l = e.target.closest("[data-lb-slug]"); if (!l) return; e.preventDefault(); dlg.close(); openWork(bySlug[l.dataset.lbSlug]); });
   lbImg.addEventListener("click", () => stage.classList.toggle("zoomed"));
   stage.addEventListener("click", (e) => { if (e.target === stage) dlg.close(); });
+
+
+  /* ---------- research page viewer ---------- */
+  const rdlg = $("[data-rdlg]"), rbody = $("[data-rpage]", rdlg);
+  let rsec = 0, rj = 0;
+  function rShow() {
+    const s = P.sections[rsec], it = s.items[rj];
+    rbody.innerHTML = researchPage(it, rj, s.items.length); rdlg.scrollTop = 0; rbody.scrollTop = 0;
+  }
+  document.addEventListener("click", (e) => {
+    const o = e.target.closest("[data-rs]");
+    if (o) { rsec = +o.dataset.rs; rj = +o.dataset.j; rShow(); if (!rdlg.open) rdlg.showModal(); return; }
+    const l = e.target.closest("[data-rp-slug]");
+    if (l && rdlg.open) { e.preventDefault(); rdlg.close(); openWork(bySlug[l.dataset.rpSlug]); }
+  });
+  const rStep = (d) => { const n = P.sections[rsec].items.length; rj = (rj + d + n) % n; rShow(); };
+  $('[data-rd="prev"]', rdlg).addEventListener("click", () => rStep(-1));
+  $('[data-rd="next"]', rdlg).addEventListener("click", () => rStep(1));
+  $('[data-rd="close"]', rdlg).addEventListener("click", () => rdlg.close());
+  rdlg.addEventListener("click", (e) => { if (e.target === rdlg) rdlg.close(); });
+  rdlg.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") rStep(-1); if (e.key === "ArrowRight") rStep(1); });
 
   /* ---------- keyboard ---------- */
   document.addEventListener("keydown", (e) => {

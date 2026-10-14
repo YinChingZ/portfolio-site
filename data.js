@@ -89,6 +89,97 @@ window.PORTFOLIO = {
   ],
   sections: [
     {
+      id: "research",
+      label: "Research",
+      layout: "research", // taped pages like Plans; each opens as a readable page
+      intro: "How does sweetness become an experience? How do the physical and sensory qualities of confectionery interact with human perception and memory to shape flavor expectations and emotional comfort?",
+      items: [
+        {
+          kicker: "01 · Text research",
+          title: "Flavor is a multi-sensory construction",
+          note: "Eyes, ears, mouth and hands: different routes into one eating experience.",
+          cover: "flavor",
+          groups: [{
+            visual: { type: "flavor" },
+            blocks: [
+              { label: "The body combines information", text: "Eyes, ears, mouth and hands offer different routes into an eating experience." },
+              { label: "Connection to my work", text: "Body-part models make these sensory routes visible within a single still life." }
+            ]
+          }],
+          related: ["eye-candy", "sugar-murmurs", "sugared-smile", "handful-of-sweetness"],
+          sources: [{ label: "NIDCD: Taste disorders — taste, smell and flavor", url: "https://www.nidcd.nih.gov/health/taste-disorders" }]
+        },
+        {
+          kicker: "02 · Research",
+          title: "Before tasting: color, shape and texture",
+          note: "Color and shape set expectations; gloss, cracks and sound suggest a mouthfeel before the first bite.",
+          cover: "before",
+          groups: [
+            {
+              heading: "Color and shape set expectations",
+              visual: { type: "candy" },
+              blocks: [
+                { label: "Research finding", text: "Food color can influence flavor expectations and identification." },
+                { label: "Important limit", text: "Associations depend on experience and context; no color has one universal taste." },
+                { label: "Research question", text: "How do recognizable shapes and colors establish expectations before tasting?" },
+                { label: "Creative translation", text: "Pair candy-like colors with an eye to explore anticipation before eating." }
+              ]
+            },
+            {
+              heading: "Texture can be seen and heard",
+              visual: { type: "textures" },
+              blocks: [
+                { label: "Material cues", text: "Gloss, translucency, cracks and roughness suggest different possible mouthfeels." },
+                { label: "Research example", text: "Changing the sound of a potato-chip bite altered perceived crispness and freshness." },
+                { label: "Creative translation", text: "Use the ear, close-up surfaces and sound annotations to imagine an eating experience." }
+              ]
+            }
+          ],
+          related: ["eye-candy", "sugar-murmurs", "cracked-and-crumbling", "lathered-whispers"],
+          sources: [
+            { label: "Spence (2015), On the psychological impact of food colour", url: "https://link.springer.com/article/10.1186/s13411-015-0031-3" },
+            { label: "Zampini & Spence (2004), Auditory cues and perceived crispness / staleness", url: "https://doi.org/10.1111/j.1745-459x.2004.080403.x" }
+          ]
+        },
+        {
+          kicker: "03 · Artist research",
+          title: "Maisie Cousins",
+          subtitle: "sensory intensity",
+          ref: "Reference: *Dipping Sauce*, 2018",
+          note: "Close-up food imagery brings color, moisture and surface into intense proximity.",
+          cover: "work:candybound",
+          groups: [{
+            visual: { type: "works", slugs: ["candybound"] },
+            blocks: [
+              { label: "What I looked at", text: "Close-up food imagery brings color, moisture and surface into intense proximity." },
+              { label: "Takeaway", text: "A photograph can feel tactile and hold attraction alongside unease." },
+              { label: "My development", text: "Use scale, crowding and glossy surfaces to make the image feel almost touchable." }
+            ]
+          }],
+          related: ["candybound"],
+          sources: [{ label: "Maisie Cousins, Dipping Sauce (exhibition)", url: "https://hungermag.com/editorial/maisie-cousins-debut-solo-exhibition-explores-the-joy-and-ceremony-of-eating" }]
+        },
+        {
+          kicker: "04 · Artist research",
+          title: "Pauline d’Andigné",
+          subtitle: "material ambiguity",
+          ref: "Reference: sculptural practice",
+          note: "Artificial surfaces and organic-looking forms complicate what an object seems to be.",
+          cover: "work:tangled-treats",
+          groups: [{
+            visual: { type: "works", slugs: ["tangled-treats", "lathered-whispers"] },
+            blocks: [
+              { label: "What I looked at", text: "Artificial surfaces and organic-looking forms complicate what an object seems to be." },
+              { label: "Takeaway", text: "Color and material can make an object appear soft, manufactured, bodily or edible." },
+              { label: "My development", text: "Let transparent models and candy-like elements sit between recognition and uncertainty." }
+            ]
+          }],
+          related: ["tangled-treats", "lathered-whispers"],
+          sources: [{ label: "Pauline d’Andigné at DARMO", url: "https://www.darmoart.com/contemporary-art/pauline-dandigne" }]
+        }
+      ]
+    },
+    {
       id: "plans",
       label: "Plans",
       layout: "strip", // a row of taped sketchbook pages; "masonry" is the other layout
