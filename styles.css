@@ -67,7 +67,7 @@ button { font: inherit; color: inherit; }
 .hero-sticker .pin { --ph: 24px; }
 .hero-sticker .medium { font-weight: 700; letter-spacing: .02em; }
 .hero-sticker .stamp-row { justify-content: space-between; align-items: flex-end; gap: 10px; margin-top: 14px; }
-.hero-sticker .stamp-row .stamp { margin-top: 0; }
+.hero-sticker .stamp-row .stamp { margin: 0 0 0 4px; }
 .hero-sticker .sig { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.12rem; line-height: 1; white-space: nowrap; }
 .hero-sticker .sig span { display: block; width: 34px; border-top: 2px solid currentColor; opacity: .55; }
 .hero-sticker .quote { margin-top: 10px; }
