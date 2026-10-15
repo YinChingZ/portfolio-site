@@ -43,11 +43,10 @@
   $$("[data-artist]").forEach((e) => (e.textContent = P.artist));
   $("[data-sticker]").innerHTML = `
     <div class="spec">${pin(0, 24)}
-      <h3>${esc(P.artist)}</h3>
-      <p>${words[n] || n} photographs, ${P.year}</p>
+      <p class="medium">Digital photography, ${P.year}</p>
       <p class="quote">“${esc(P.epigraph)}”</p>
       <p class="from">From the text for ${esc(P.epigraphSource)}</p>
-      <div class="stamp-row"><span class="stamp">DO NOT LICK</span></div>
+      <div class="stamp-row"><p class="sig"><span aria-hidden="true"></span>${esc(P.artist)}</p><span class="stamp">DO NOT LICK</span></div>
     </div>
     <a class="cue" href="#works"><span>Look, don’t lick</span>
       <svg viewBox="0 0 130 120" aria-hidden="true"><path d="M14 10c38-6 74 6 80 34 5 24-22 36-32 20-9-15 18-24 32-6 12 16 4 40-14 54"/><path d="M58 104l22 8 2-22"/></svg></a>`;

@@ -65,7 +65,11 @@ button { font: inherit; color: inherit; }
 .hero-sticker { position: relative; max-width: 340px; margin: clamp(26px, 3.6vw, 40px) auto 0; text-align: left; transform: rotate(-3deg); }
 .hero-sticker .spec { font-size: .9rem; padding: 26px 20px 18px; }
 .hero-sticker .pin { --ph: 24px; }
-.hero-sticker h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1.05; }
+.hero-sticker .medium { font-weight: 700; letter-spacing: .02em; }
+.hero-sticker .stamp-row { justify-content: space-between; align-items: flex-end; gap: 10px; margin-top: 14px; }
+.hero-sticker .stamp-row .stamp { margin-top: 0; }
+.hero-sticker .sig { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.12rem; line-height: 1; white-space: nowrap; }
+.hero-sticker .sig span { display: block; width: 34px; border-top: 2px solid currentColor; opacity: .55; }
 .hero-sticker .quote { margin-top: 10px; }
 .hero-sticker .from { color: var(--ink-soft); }
 .stamp { display: inline-block; margin-top: 12px; margin-left: auto; transform: rotate(-11deg); border: 2px solid var(--cherry); color: var(--cherry); border-radius: 5px; padding: 1px 7px; font-family: var(--type); font-weight: 700; font-size: .75rem; letter-spacing: .08em; opacity: .92; }
