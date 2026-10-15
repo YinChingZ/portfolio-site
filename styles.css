@@ -68,15 +68,15 @@ button { font: inherit; color: inherit; }
 .hero-sticker .medium { font-weight: 700; letter-spacing: .02em; }
 .hero-sticker .stamp-row { justify-content: space-between; align-items: flex-end; gap: 10px; margin-top: 14px; }
 .hero-sticker .stamp-row .stamp { margin: 0 0 0 4px; }
-.hero-sticker .sig { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.12rem; line-height: 1; white-space: nowrap; }
-.hero-sticker .sig span { display: block; width: 34px; border-top: 2px solid currentColor; opacity: .55; }
+.hero-sticker .sig { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: .9rem; line-height: 1; white-space: nowrap; }
+.hero-sticker .sig span { display: block; width: 26px; border-top: 2px solid currentColor; opacity: .55; }
 .hero-sticker .quote { margin-top: 10px; }
 .hero-sticker .from { color: var(--ink-soft); }
 .stamp { display: inline-block; margin-top: 12px; margin-left: auto; transform: rotate(-11deg); border: 2px solid var(--cherry); color: var(--cherry); border-radius: 5px; padding: 1px 7px; font-family: var(--type); font-weight: 700; font-size: .75rem; letter-spacing: .08em; opacity: .92; }
 .stamp-row { display: flex; justify-content: flex-end; }
 /* hand-drawn arrow from the sticker down to the works (wide screens only) */
 .cue { position: absolute; left: calc(100% + 26px); top: 26%; width: 150px; display: grid; justify-items: start; gap: 2px; color: var(--ink); text-decoration: none; transform: rotate(5deg); }
-.cue span { font-family: var(--display); font-size: 1.12rem; line-height: 1; white-space: nowrap; }
+.cue span { font-family: var(--display); font-size: .9rem; line-height: 1; white-space: nowrap; }
 .cue svg { width: 112px; height: auto; margin-left: 10px; fill: none; stroke: var(--cherry); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
 .cue:hover svg { transform: translateY(3px); transition: transform .3s var(--pop); }
 @media (max-width: 900px) { .cue { display: none; } }
