@@ -60,7 +60,9 @@ button { font: inherit; color: inherit; }
   padding: calc(env(safe-area-inset-top, 0px) + clamp(100px, 11vw, 132px)) var(--gutter) 0;
   text-align: center;
 }
-.hero .pt { font-size: clamp(32px, 7.2vw, 98px); max-width: 980px; margin: 0 auto; }
+.hero .pt { font-size: clamp(30px, 6.3vw, 84px); max-width: 980px; margin: 0 auto; }
+/* last line ("Sensing Sweetness") smaller, as a subtitle in the same lettering */
+.hero .pt-sub .pt-line:last-child { font-size: .56em; margin-top: .22em; }
 .hero .pt-C { font-size: clamp(38px, 8.4vw, 112px); }
 .hero-sticker { position: relative; max-width: 340px; margin: clamp(26px, 3.6vw, 40px) auto 0; text-align: left; transform: rotate(-3deg); }
 .hero-sticker .spec { font-size: .9rem; padding: 26px 20px 18px; }

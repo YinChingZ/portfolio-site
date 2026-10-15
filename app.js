@@ -38,6 +38,7 @@
   const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   const t0 = performance.now();
   document.title = P.siteTitle || P.seriesTitle.join(" ");
+  if (lines.length > 2) titleEl.classList.add("pt-sub");
   if (P.textFont) document.documentElement.dataset.textfont = P.textFont; // font of the artist's texts (see styles.css)
 
   $$("[data-artist]").forEach((e) => (e.textContent = P.artist));

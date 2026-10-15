@@ -12,7 +12,7 @@
 */
 window.PORTFOLIO = {
   artist: "Xiaoran Hou",
-  seriesTitle: ["Please Don’t", "Lick the Art"],
+  seriesTitle: ["Please Don’t", "Lick the Art:", "Sensing Sweetness"], // each item is one line of the big title; the last line is drawn smaller
   year: 2026,
   siteTitle: "Please Don’t Lick the Art: Sensing Sweetness", // browser tab and link-preview title
   // Title lettering: effect "A" pop block, "B" halftone pop, "C" retro script sticker; palette 1–6 (see pop-title.css)
