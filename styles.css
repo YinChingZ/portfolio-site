@@ -227,7 +227,10 @@ button { font: inherit; color: inherit; }
 
 /* ---------- about ---------- */
 .about { padding: clamp(40px, 6vw, 72px) var(--gutter) clamp(72px, 10vw, 120px); }
-.about-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(20px, 5vw, 64px); align-items: start; }
+.about-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); grid-template-areas: "h body" "photos body"; grid-template-rows: auto 1fr; gap: 0 clamp(20px, 5vw, 64px); align-items: start; }
+.about-inner > .h2 { grid-area: h; }
+.about-body { grid-area: body; }
+.about-side { grid-area: photos; padding-top: clamp(6px, 1.5vw, 18px); }
 .about-body { max-width: 60ch; font-size: 1.05rem; line-height: 1.7; font-weight: 500; color: var(--on-bg, var(--ink)); }
 .about-body p { margin: 0 0 1rem; }
 .contact { font-family: var(--type); font-size: .95rem; }
@@ -267,7 +270,7 @@ button { font: inherit; color: inherit; }
   .detail-inner { grid-template-columns: minmax(0, 1fr); }
   .detail-img { position: static; }
   .detail-img img { max-height: 70vh; }
-  .about-inner { grid-template-columns: minmax(0, 1fr); }
+  .about-inner { grid-template-columns: minmax(0, 1fr); grid-template-areas: "h" "body" "photos"; grid-template-rows: auto; row-gap: 20px; }
 }
 @media (max-width: 560px) {
   .board { gap: 26px 12px; }
