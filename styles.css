@@ -406,12 +406,12 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---------- About: two pinned prints, uncropped (portrait + landscape) ---------- */
-.about-photos { position: relative; display: flex; align-items: flex-start; margin: clamp(22px, 3vw, 34px) 0 clamp(20px, 3vw, 30px); padding-left: 6px; }
-.snap { position: relative; margin: 0; flex: none; background: #fff; padding: 8px 8px 10px; border-radius: 3px; transform: rotate(var(--rot)); transition: transform .5s var(--pop);
+.about-photos { position: relative; display: flex; align-items: flex-start; margin: clamp(18px, 2.4vw, 28px) 0 0; padding-left: 6px; }
+.snap { position: relative; margin: 0; flex: none; background: #fff; padding: 6px 6px 7px; border-radius: 3px; transform: rotate(var(--rot)); transition: transform .5s var(--pop);
   box-shadow: 0 1px 0 rgba(52, 64, 122, .06), 0 20px 32px -18px rgba(52, 64, 122, .5); }
-.snap.tall { width: clamp(130px, 15vw, 190px); }
-.snap.wide { width: clamp(190px, 22vw, 270px); margin-left: clamp(-26px, -2vw, -14px); margin-top: clamp(70px, 9vw, 110px); }
+.snap.tall { width: clamp(100px, 8.8vw, 114px); }
+.snap.wide { width: clamp(146px, 13vw, 170px); margin-left: -12px; margin-top: clamp(28px, 3vw, 38px); }
 .snap img { display: block; width: 100%; height: auto; border-radius: 2px; }
-.snap > .pin { left: 50%; top: 4px; }
-.snap figcaption { margin-top: 8px; text-align: center; font-family: var(--type); font-weight: 700; font-size: .78rem; letter-spacing: .06em; color: var(--ink-soft); }
+.snap > .pin { left: 50%; top: 3px; --ph: 15px; }
+.snap figcaption { margin-top: 5px; text-align: center; font-family: var(--type); font-weight: 700; font-size: .7rem; letter-spacing: .06em; color: var(--ink-soft); }
 .snap:hover { transform: rotate(0deg) scale(1.03); z-index: 2; }
