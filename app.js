@@ -37,7 +37,7 @@
   window.PopTitle.render(titleEl, { lines, unit: T.effect === "C" ? "word" : "letter" });
   const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   const t0 = performance.now();
-  document.title = P.seriesTitle.join(" ");
+  document.title = P.siteTitle || P.seriesTitle.join(" ");
   if (P.textFont) document.documentElement.dataset.textfont = P.textFont; // font of the artist's texts (see styles.css)
 
   $$("[data-artist]").forEach((e) => (e.textContent = P.artist));

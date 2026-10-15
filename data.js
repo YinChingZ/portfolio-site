@@ -14,6 +14,7 @@ window.PORTFOLIO = {
   artist: "Xiaoran Hou",
   seriesTitle: ["Please Don’t", "Lick the Art"],
   year: 2026,
+  siteTitle: "Please Don’t Lick the Art: Sensing Sweetness", // browser tab and link-preview title
   // Title lettering: effect "A" pop block, "B" halftone pop, "C" retro script sticker; palette 1–6 (see pop-title.css)
   title: { effect: "A", palette: 4, outline: false, side: "#F6A9C9" }, // side: colour of the 3D depth; outline: true brings back the dark edge
   epigraph: "I wanted to explore the point at which anticipated sweetness becomes unease.",
