@@ -209,9 +209,9 @@ window.PORTFOLIO = {
 
   about: {
     heading: "About me",
-    photos: [ // shown as round frames under the bio (square crops, 480 px)
-      { src: "assets/about/xiaoran-studio-480.webp", alt: "Xiaoran in the studio, head bowed, attaching sensory toys to the transparent hand of Handful of Sweetness.", caption: "on set" },
-      { src: "assets/about/xiaoran-night-480.webp", alt: "Xiaoran laughing by a river railing at night, arms out wide.", caption: "off set" }
+    photos: [ // shown uncropped as two pinned prints next to the bio
+      { src: "assets/about/xiaoran-studio-640.webp", w: 640, h: 960, alt: "Xiaoran in the studio, head bowed, attaching sensory toys to the transparent hand of Handful of Sweetness.", caption: "on set" },
+      { src: "assets/about/xiaoran-night-900.webp", w: 900, h: 660, alt: "Xiaoran laughing by a river railing at night, arms out wide.", caption: "off set" }
     ],
     bio: "Hi, I’m Xiaoran! Born in 2008, currently in high school, and usually wondering what ordinary objects could become if I rearranged them a little.\n\nI like my socks weird and my hair dyed in patterns. Apparently, the experimenting doesn’t stop when I put the camera down.\n\nThis website is where some of the strange little ideas in my head come out to play. Have a look around!",
     email: "Xiaoran.Hou90127-bbsz@basischina.com",

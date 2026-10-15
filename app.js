@@ -257,8 +257,8 @@
   if (a.bio) about += a.bio.split(/\n\s*\n/).map((p) => `<p>${esc(p)}</p>`).join("");
   else if (P.showDraftNotes) about += '<p class="draft-note">Draft note: a short bio goes here, about 100 words in your own voice. Add it in data.js.</p>';
   if ((a.photos || []).length) $("[data-about-photos]").innerHTML = `<div class="about-photos">${a.photos.map((ph, i) => `
-    <figure class="ring" style="--ring:${["#FFE14D", "#9EDCF5", "#A8E6C1"][i % 3]};--rot:${i % 2 ? 4 : -5}deg">
-      <img src="${esc(ph.src)}" alt="${esc(ph.alt || "")}" width="480" height="480" loading="lazy" decoding="async">${ph.caption ? `<figcaption>${esc(ph.caption)}</figcaption>` : ""}
+    <figure class="snap ${(ph.w || 1) >= (ph.h || 1) ? "wide" : "tall"}" style="--rot:${i % 2 ? 3.5 : -3}deg">${pin(i + 1, 18)}
+      <img src="${esc(ph.src)}" alt="${esc(ph.alt || "")}" width="${ph.w || 600}" height="${ph.h || 600}" loading="lazy" decoding="async">${ph.caption ? `<figcaption>${esc(ph.caption)}</figcaption>` : ""}
     </figure>`).join("")}</div>`;
   if (a.email) about += `<p class="contact">Email <a href="mailto:${esc(a.email)}">${esc(a.email)}</a></p>`;
   if (a.instagram) about += `<p class="contact">Instagram ${esc(a.instagram)}</p>`;
